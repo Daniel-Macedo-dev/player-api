@@ -35,7 +35,7 @@ public class PlayerRepository {
 
     public List<Player> findAll() {
         return StreamSupport.stream(playerTable.scan().spliterator(), false)
-                .flatMap(page -> page.items().stream()) // converte Page<Player> → Player
+                .flatMap(page -> page.items().stream())
                 .collect(Collectors.toList());
     }
 
