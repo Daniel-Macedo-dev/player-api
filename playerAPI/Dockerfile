@@ -1,5 +1,5 @@
-FROM openjdk:25-jdk
+FROM openjdk:24-jdk
 WORKDIR /app
-COPY target/player-api-0.0.1-SNAPSHOT.jar app.jar
+COPY target/playerAPI-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
 EXPOSE 8081
