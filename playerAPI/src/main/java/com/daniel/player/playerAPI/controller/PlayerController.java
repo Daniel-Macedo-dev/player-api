@@ -37,6 +37,7 @@ public class PlayerController {
         return ResponseEntity.noContent().build();
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<Player> replacePlayer(@PathVariable String id,
                                                 @RequestBody Player novoPlayer){
