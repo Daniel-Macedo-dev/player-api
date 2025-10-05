@@ -1,0 +1,154 @@
+openapi: 3.0.1
+info:
+  title: Player API
+  version: v1
+  description: API para gerenciar jogadores com DynamoDB
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+
+paths:
+  /player:
+    get:
+      summary: Listar todos os jogadores
+      tags:
+        - player-controller
+      operationId: listarPlayers
+      responses:
+        '200':
+          description: Lista de jogadores retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+    post:
+      summary: Criar um novo jogador
+      tags:
+        - player-controller
+      operationId: criarPlayer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Player'
+      responses:
+        '201':
+          description: Jogador criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+        '400':
+          description: Requisição inválida
+
+  /player/{id}:
+    get:
+      summary: Buscar jogador por ID
+      tags:
+        - player-controller
+      operationId: buscarPlayer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Jogador encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+        '404':
+          description: Jogador não encontrado
+
+    put:
+      summary: Substituir jogador
+      tags:
+        - player-controller
+      operationId: substituirPlayer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Player'
+      responses:
+        '200':
+          description: Jogador atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+        '404':
+          description: Jogador não encontrado
+
+    patch:
+      summary: Atualizar parcialmente jogador
+      tags:
+        - player-controller
+      operationId: atualizarPlayer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Player'
+      responses:
+        '200':
+          description: Jogador atualizado parcialmente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+        '404':
+          description: Jogador não encontrado
+
+    delete:
+      summary: Deletar jogador
+      tags:
+        - player-controller
+      operationId: deletarPlayer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Jogador deletado com sucesso
+        '404':
+          description: Jogador não encontrado
+
+components:
+  schemas:
+    Player:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID do jogador
+        name:
+          type: string
+          description: Nome do jogador
+        level:
+          type: integer
+          description: Nível do jogador
+          minimum: 0
